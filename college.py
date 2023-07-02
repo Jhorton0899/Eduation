@@ -1,5 +1,4 @@
 import pandas as pd
-
 df = pd.read_excel("C:\\Users\\vturn\\OneDrive\\CollegeRanking.xlsx")
 pd.set_option('display.max_columns', None)
 
@@ -43,15 +42,15 @@ if locationCountry.lower() in ["no", "can't decide", "haven't decided", "still l
     if CountryChoice.lower().strip() == "location":
         specificLocation = input("Can you be more particular? Are you looking for somewhere with an active nightlife or maybe somewhere with a diverse culture? ")
 if specificLocation.lower() in ["nightlife", "excitement", "food", "people"]:
-  suggestion = input("I think you'd enjoy New York which is in the USA. Can I send you some schools from the area? ")
+  suggestion = input("I think you'd enjoy New York, California or Florida all of which are in the USA. Can I send you some schools from the area? ")
   if suggestion.lower() in ["yes", "sure", "sounds good"]:
-    NewYork = df[(df['State'].str.contains('New York', case=False)) | (df['State'].str.contains('New Jersey', case=False))]
+    NewYork = df[(df['State'].str.contains('New York', case=False)) | (df['State'].str.contains('New Jersey', case=False)) | (df['State'].str.contains('Florida', case=False)) | (df['State'].str.contains('California', case=False))]
     if len(NewYork) > 0:
         NewYork['Formatted Tuition'] = NewYork['Tuition '].apply(lambda x: "${:,.2f}".format(x))
-        print("Here are some schools in New York and the surrounding area:")
+        print("Here are some schools from the states discussed:")
         print(NewYork[['Institution', 'Formatted Tuition']])
     else:
-        print("I couldn't find any schools in New York and the surrounding area.")
+        print("I couldn't find any schools in New York or the other schools mentioned.")
 elif CountryChoice.lower() in ["price", "cost", "total", "afford"]:
     query = input("Schools outside of the United States tend to be less expensive and rank fairly high in the world rankings. Should I provide you with some? ")
     if query.lower() in ["yes", "yeah", "sure"]:
